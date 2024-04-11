@@ -122,4 +122,20 @@ class Usuarios
       "data" => []
     ]);
   }
+
+  public function DeletarUsuario($data)
+  {
+    extract($data);
+
+    $result = $this->db->execute(
+      "DELETE FROM usuarios WHERE id = ?",
+      [$id_usuario]
+    );
+
+    print json_encode([
+      "code" => $result ? 200 : 500,
+      "message" =>  $result ? "success" : $this->db->getLastError(),
+      "data" => []
+    ]);
+  }
 }

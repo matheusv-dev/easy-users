@@ -98,6 +98,28 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deleteLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Deletar Usuário</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Você está prestes a deletar o usuario <b class="title_user"></b></p>
+        <p>Deseja continuar?</p>
+        <input type="hidden" name="id_usuario_delete" id="id_usuario_delete">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" onclick="DeletarUsuario()">Deletar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   function ListarUsuarios() {
     $.ajax({
@@ -119,7 +141,7 @@
             <td>${user.rua}, Nº ${user.numero} - ${user.cep}, ${user.cidade}/${user.uf}</td>
             <td> 
               <button class="btn btn-warning" data-record-id="${user.id}" data-toggle="modal" data-target="#modal-form"><i class="bi bi-pencil-square"></i></button>
-              <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+              <button class="btn btn-danger" data-record-title="${user.nome}" data-record-id="${user.id}" data-toggle="modal" data-target="#modal-delete"><i class="bi bi-trash"></i></button>
             </td>
           </tr>
           `;
@@ -129,6 +151,14 @@
       }
     })
   }
+
+  $('#modal-delete').on('show.bs.modal', function(e) {
+    var data = $(e.relatedTarget).data();
+
+    $(".title_user").html(data.recordTitle)
+    $("#id_usuario_delete").val(data.recordId)
+
+  });
 
   $('#modal-form').on('show.bs.modal', function(e) {
     var data = $(e.relatedTarget).data();
@@ -385,14 +415,35 @@
         const response = JSON.parse(data)
 
         if (response.code == 200) {
-          alert("Usuário alterado com sucesso");
+          alert("Usuário cadastrado com sucesso");
           window.location.reload()
         } else {
           alert(response.message);
         }
       }
     })
+  }
 
+  function DeletarUsuario() {
+
+    const userId = $("#id_usuario_delete").val()
+    $.ajax({
+      url: `https://localhost/easy-users/backend/api/usuario/${userId}`,
+      headers: {
+        'Authorization': 'Basic [TOKEN]',
+      },
+      method: 'DELETE',
+      success: data => {
+        const response = JSON.parse(data)
+
+        if (response.code == 200) {
+          alert("Usuário deletado com sucesso");
+          window.location.reload()
+        } else {
+          alert(response.message);
+        }
+      }
+    })
   }
 
   $(document).ready(function() {

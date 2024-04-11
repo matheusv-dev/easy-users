@@ -20,6 +20,7 @@ $router->get("/api/usuarios/listar", "Usuarios:listar",  "Usuarios.listar", Midd
 
 $router->get("/api/usuario/{id_usuario}/", "Usuarios:Get", "Usuarios.Get", Middleware::class);
 $router->put("/api/usuario/{id_usuario}/", "Usuarios:AtualizarUsuario", "Usuarios.AtualizarUsuario", Middleware::class);
+$router->delete("/api/usuario/{id_usuario}/", "Usuarios:DeletarUsuario", "Usuarios.DeletarUsuario", Middleware::class);
 $router->post("/api/usuario/", "Usuarios:CadastrarUsuario", "Usuarios.CadastrarUsuario", Middleware::class);
 
 
