@@ -1,0 +1,15 @@
+@import url('./base_color.css');
+
+:root {
+  /* Altura menu */
+  --navbar-size: 7rem;
+  --navbar-logo-size: 5rem;
+
+  /* font-family padrão */
+
+  --font-size-body: 10px;
+  /* --font-family: "Roboto", sans-serif; */
+  --font-weight: 400;
+  --min-width-body: 360px;
+  --size-width: 1240px;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "easy/teste",
+  "description": "Teste para empresa easy course",
+  "type": "project",
+  "license": "Free",
+  "authors": [
+    {
+      "name": "Matheus vieira"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "coffeecode/router": "^2.0",
+    "twbs/bootstrap": "5.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/"
+    }
+  }
+}
