@@ -38,7 +38,7 @@ class Login
       $safePost = $data;
     }
 
-    $result = self::UserExist($safePost['nome_usuario'], $safePost['senha']);
+    $result = self::UserExist($safePost['nome_usuario'], md5($safePost['senha']));
     $response = [];
 
     if ($result) {

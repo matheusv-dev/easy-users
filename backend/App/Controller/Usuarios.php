@@ -62,14 +62,16 @@ class Usuarios
   {
     extract($data);
 
-    $post =  [$nome, $nome_usuario, $rua, $numero, $cep, $bairro, $cidade, $uf, $rg, $cpf, $id];
+    $post =  [$nome, $nome_usuario, $rua, $numero, $cep, $bairro, $cidade, $uf, $rg, $cpf];
 
     $add_where = "";
 
-    if (isset($senha)) {
+    if ($senha != "") {
       $post[] = md5($senha);
       $add_where = ", senha = ?";
     }
+
+    $post[] = $id;
 
     $result = $this->db->execute(
       "UPDATE usuarios SET 

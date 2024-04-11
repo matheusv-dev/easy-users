@@ -21,6 +21,8 @@ $router->get('/login',        'Pages:Login',    'Pages.Login');
 
 $router->get("/", "Pages:Home", "Pages.Home", Middleware::class);
 
+$router->get("/logout/", "Logout:logout", "Logout");
+
 $router->dispatch();
 
 if ($router->error()) {

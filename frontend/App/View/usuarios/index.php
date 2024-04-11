@@ -91,7 +91,7 @@
               <input type="text" class="form-control" id="cpf" name="cpf">
             </div>
           </div>
-          <button type="button" class="btn btn-primary" id="btn-form"></button>
+          <button type="button" class="btn btn-success" id="btn-form"></button>
         </form>
       </div>
     </div>
@@ -128,10 +128,19 @@
         'Authorization': 'Basic [TOKEN]',
       },
       success: data => {
+
         const response = JSON.parse(data)
+
+        if (response.code == 401) {
+          alert(data.message)
+          window.location.href = "https://localhost/easy-users/frontend/logout/"
+        }
+
 
         let html = ``;
         response.data.forEach(user => {
+          const disabledEdit = user.nome_usuario == "[USUARIO_LOGADO]" ? '' : 'disabled'
+          // const disabledEdit = ""
           html += `
           <tr>
             <th scope="row">${user.nome}</th>
@@ -140,7 +149,7 @@
             <td>${user.cpf}</td>
             <td>${user.rua}, Nº ${user.numero} - ${user.cep}, ${user.cidade}/${user.uf}</td>
             <td> 
-              <button class="btn btn-warning" data-record-id="${user.id}" data-toggle="modal" data-target="#modal-form"><i class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-warning" ${disabledEdit} data-record-id="${user.id}" data-toggle="modal" data-target="#modal-form"><i class="bi bi-pencil-square"></i></button>
               <button class="btn btn-danger" data-record-title="${user.nome}" data-record-id="${user.id}" data-toggle="modal" data-target="#modal-delete"><i class="bi bi-trash"></i></button>
             </td>
           </tr>
@@ -346,7 +355,6 @@
         })
 
         $("#id_funcao").html(html);
-        console.log(response)
       }
     })
   }
@@ -427,6 +435,7 @@
   function DeletarUsuario() {
 
     const userId = $("#id_usuario_delete").val()
+
     $.ajax({
       url: `https://localhost/easy-users/backend/api/usuario/${userId}`,
       headers: {

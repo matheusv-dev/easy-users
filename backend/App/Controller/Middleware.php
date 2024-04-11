@@ -21,11 +21,17 @@ class Middleware
 
     $response = $Login->UserExist(
       $arrayData['nome_usuario'],
-      $arrayData['senha']
+      md5($arrayData['senha'])
     );
 
+
+
     if (!$response) {
-      return false;
+      print json_encode([
+        "code" => 401,
+        "message" => "Usuário não autenticado",
+        "data" => []
+      ]);
     } else {
       return true;
     }

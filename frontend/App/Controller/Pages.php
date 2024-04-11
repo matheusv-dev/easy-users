@@ -22,6 +22,7 @@ class Pages
     $base = file_get_contents('./App/View/base/main.php');
     $page = file_get_contents('./App/View/usuarios/index.php');
 
+    $page = str_replace('[USUARIO_LOGADO]', $_SESSION['USUARIO']["nome_usuario"], $page);
     $page = str_replace('[TOKEN]', $_SESSION['TOKEN'], $page);
     $base = str_replace('[PAGE]', $page, $base);
 
