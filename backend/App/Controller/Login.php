@@ -48,6 +48,7 @@ class Login
         "data" => $safePost
       ];
     } else {
+      header("HTTP/1.1 401 Unauthorized");
       $response = [
         "code" => 401,
         "message" => "Usuário ou senha incorreto.",

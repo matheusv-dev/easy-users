@@ -24,9 +24,8 @@ class Middleware
       md5($arrayData['senha'])
     );
 
-
-
     if (!$response) {
+      header("HTTP/1.1 401 Unauthorized");
       print json_encode([
         "code" => 401,
         "message" => "Usuário não autenticado",

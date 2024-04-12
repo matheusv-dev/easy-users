@@ -90,8 +90,12 @@ class Usuarios
       $post
     );
 
+    $code =  $result ? 200 : 500;
+
+    header("HTTP/1.1 {$code}");
+
     print json_encode([
-      "code" => $result ? 200 : 500,
+      "code" => $code,
       "message" =>  $result ? "success" : $this->db->getLastError(),
       "data" => []
     ]);
@@ -118,8 +122,12 @@ class Usuarios
       [$id_funcao, $nome, $nome_usuario, md5($senha), $rua, $numero, $cep, $bairro, $cidade, $uf, $rg, $cpf]
     );
 
+    $code =  $result ? 200 : 500;
+
+    header("HTTP/1.1 {$code}");
+
     print json_encode([
-      "code" => $result ? 200 : 500,
+      "code" => $code,
       "message" =>  $result ? "success" : $this->db->getLastError(),
       "data" => []
     ]);
@@ -134,8 +142,12 @@ class Usuarios
       [$id_usuario]
     );
 
+    $code =  $result ? 200 : 500;
+
+    header("HTTP/1.1 {$code}");
+
     print json_encode([
-      "code" => $result ? 200 : 500,
+      "code" => $code,
       "message" =>  $result ? "success" : $this->db->getLastError(),
       "data" => []
     ]);
