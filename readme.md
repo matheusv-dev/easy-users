@@ -16,6 +16,9 @@
 
 > Para cada requisição feita para o backend, foi utilizado uma autenticação por header http basic, utilizando uma base64 do array com usuário e senha logado a cada requisição, validado se o usuário é valido ou não.
 
+> Usuário para acessar o sistema
+> - Usuário: matheusv 
+> - Senha: 123 
 
 ```
  Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.0.30
