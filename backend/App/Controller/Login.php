@@ -12,8 +12,6 @@ class Login
   public function __construct($router)
   {
     $this->router = $router;
-    $this->UserLogado = Auth::UsuarioLogado();
-
     $this->db   = new dbConnect();
   }
 

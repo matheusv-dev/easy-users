@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\dbConnect;
-use App\Middleware\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -15,8 +13,6 @@ class Exportar
   public function __construct($router)
   {
     $this->router = $router;
-
-    $this->db   = new dbConnect();
   }
 
   public function Excel()

@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\dbConnect;
-use App\Middleware\Auth;
-
 class Login
 {
   public $db, $router, $base_css, $base_routers, $base_template, $params_global = [], $templates, $loader, $twig, $View, $UserID, $targetDomain, $UserLogado;
@@ -12,8 +9,6 @@ class Login
   public function __construct($router)
   {
     $this->router = $router;
-
-    $this->db   = new dbConnect();
   }
 
   public function ValidateSession($data)

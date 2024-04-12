@@ -2,10 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\dbConnect;
-use App\Middleware\Auth;
-
-
 class Pages
 {
   public $db, $router, $base_css, $base_routers, $base_template, $params_global = [], $templates, $loader, $twig, $View, $UserID, $targetDomain, $UserLogado;
@@ -13,8 +9,6 @@ class Pages
   public function __construct($router)
   {
     $this->router = $router;
-
-    $this->db   = new dbConnect();
   }
 
   public function Home()

@@ -18,7 +18,6 @@ $router->get('/autenticate/', 'Login:ValidateSession', 'Login.ValidateSession');
 $router->get('/login',        'Pages:Login',    'Pages.Login');
 
 
-
 $router->get("/", "Pages:Home", "Pages.Home", Middleware::class);
 $router->get("/exportar/excel/", "Exportar:excel", "Exportar.excel", Middleware::class);
 $router->get("/exportar/pdf/", "Exportar:PDF", "Exportar.PDF", Middleware::class);
@@ -28,5 +27,5 @@ $router->get("/logout/", "Logout:logout", "Logout");
 $router->dispatch();
 
 if ($router->error()) {
-    echo $router->error();
+    header("HTTP/1.1 " . $router->error() . " Unauthorized");
 }
