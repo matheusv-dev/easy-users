@@ -11,7 +11,10 @@
   "minimum-stability": "dev",
   "require": {
     "coffeecode/router": "^2.0",
-    "twbs/bootstrap": "5.3.3"
+    "twbs/bootstrap": "5.3.3",
+    "ext-gd": "*",
+    "phpoffice/phpspreadsheet": "dev-master",
+    "mpdf/mpdf": "dev-development"
   },
   "autoload": {
     "psr-4": {

@@ -1,24 +1,29 @@
 <div class="p-2 d-flex flex-column" style="gap: 1rem">
-  <div class="d-flex flex-row justify-content-between align-items-center">
+  <div class="d-flex flex-row justify-content-between align-items-baseline">
     <h3><i class="bi bi-people-fill"></i> Lista de Usuários</h3>
-    <button class="btn btn-success" data-toggle="modal" data-target="#modal-form"><i class="bi bi-person-fill-add text-lg"></i></button>
+    <div class="d-flex" style="gap: 1rem">
+
+      <button class="btn btn-info" onclick="window.open('./exportar/pdf/', '_blank')"><i class="bi bi-filetype-pdf" style="font-size: 1.5rem;"></i></button>
+      <button class="btn btn-success" onclick="window.open('./exportar/excel/', '_blank')"><i class="bi bi-filetype-xlsx" style="font-size: 1.5rem;"></i></button>
+      <button class="btn btn-dark" data-toggle="modal" data-target="#modal-form"><i class="bi bi-person-fill-add text-lg" style="font-size: 1.5rem;"></i></button>
+    </div>
   </div>
 
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">Função</th>
-        <th scope="col">Nome</th>
-        <th scope="col">RG</th>
-        <th scope="col">CPF</th>
-        <th scope="col">Endereço</th>
-        <th scope="col">Opções</th>
-      </tr>
-    </thead>
-    <tbody id="userlist">
-
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered ">
+      <thead>
+        <tr>
+          <th scope="col">Função</th>
+          <th scope="col">Nome</th>
+          <th scope="col">RG</th>
+          <th scope="col">CPF</th>
+          <th scope="col">Endereço</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody id="userlist"></tbody>
+    </table>
+  </div>
 </div>
 <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal_editar" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -27,7 +32,7 @@
         <h5 class="title-modal">Editar</h5>
       </div>
       <div class="modal-body">
-        <form>
+        <form id='form-user'>
           <input type="hidden" id="id_usuario" name="id_usuario">
           <div class="form-row">
             <div class="form-group col-md-8">
@@ -143,12 +148,12 @@
           // const disabledEdit = ""
           html += `
           <tr>
-            <th scope="row">${user.nome}</th>
-            <td>${user.nome_funcao}</td>
-            <td>${user.rg}</td>
-            <td>${user.cpf}</td>
-            <td>${user.rua}, Nº ${user.numero} - ${user.cep}, ${user.cidade}/${user.uf}</td>
-            <td> 
+            <th class='text-nowrap align-content-center' scope="row">${user.nome}</th>
+            <td class='text-nowrap align-content-center'>${user.nome_funcao}</td>
+            <td class='text-nowrap align-content-center'>${user.rg}</td>
+            <td class='text-nowrap align-content-center'>${user.cpf}</td>
+            <td class='text-nowrap align-content-center'>${user.rua}, Nº ${user.numero} - ${user.cep}, ${user.cidade}/${user.uf}</td>
+            <td class='d-flex flex-row align-content-center' style='gap: 1rem;'> 
               <button class="btn btn-warning" ${disabledEdit} data-record-id="${user.id}" data-toggle="modal" data-target="#modal-form"><i class="bi bi-pencil-square"></i></button>
               <button class="btn btn-danger" data-record-title="${user.nome}" data-record-id="${user.id}" data-toggle="modal" data-target="#modal-delete"><i class="bi bi-trash"></i></button>
             </td>
@@ -171,6 +176,7 @@
 
   $('#modal-form').on('show.bs.modal', function(e) {
     var data = $(e.relatedTarget).data();
+    $(".form-control").val('')
 
     const tituloBotao = data.recordId ? "Salvar" : "Cadastrar"
     const tituloModal = data.recordId ? "Alterar usuário" : "Cadastrar usuário"
@@ -187,8 +193,6 @@
 
     if (data.recordId) {
       carregarDadosUsuario(data.recordId)
-    } else {
-      CarregarUF('')
     }
 
   });
@@ -330,7 +334,7 @@
       },
     ]
 
-    let html = '<option>Selecione...</option>'
+    let html = '<option value="">Selecione...</option>'
     ufs.forEach(estado => {
       html += `<option value="${estado.uf}">${estado.label}</option>`
     })
@@ -349,7 +353,7 @@
         const response = JSON.parse(data)
 
 
-        let html = '<option>Selecione...</option>'
+        let html = '<option value="">Selecione...</option>'
         response.data.forEach(funcao => {
           html += `<option value="${funcao.id}">${funcao.nome_funcao}</option>`
         })
