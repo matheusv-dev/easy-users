@@ -1,4 +1,4 @@
-<?
+<?php
 require "../define_dbs.php";
 ?>
 <!DOCTYPE html>
